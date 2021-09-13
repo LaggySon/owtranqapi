@@ -54,10 +54,9 @@ router.delete("/:teamId", async (req, res) => {
 //UPDATE A POST
 router.patch("/:teamId", async (req, res) => {
   try {
+    var teamModel = new Team(req.body);
     const updatedTeam = await Team.updateOne(
-      { _id: req.params.teamId },
-      { $set: { name: req.body.name } }
-    );
+      { _id: req.params.teamId },teamModel, {upsert: true});
     res.json(updatedTeam);
   } catch (err) {
     res.json({ message: err });
