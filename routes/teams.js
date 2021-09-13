@@ -57,6 +57,7 @@ router.patch("/:teamId", async (req, res) => {
     var teamModel = new Team(req.body);
     const updatedTeam = await Team.updateOne(
       { _id: req.params.teamId },teamModel, {upsert: true});
+      console.log("updated")
     res.json(updatedTeam);
   } catch (err) {
     res.json({ message: err });
