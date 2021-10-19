@@ -55,9 +55,11 @@ router.delete("/:teamId", async (req, res) => {
 router.patch("/:teamId", async (req, res) => {
   try {
     var teamModel = new Team(req.body);
+     //Creates a new Team object to allow users to "PATCH" individual properties
     const updatedTeam = await Team.updateOne(
+      //upsert will insert data if fields are left empty
       { _id: req.params.teamId },teamModel, {upsert: true});
-      console.log("updated")
+      console.log("updated " + req.params.teamId);
     res.json(updatedTeam);
   } catch (err) {
     res.json({ message: err });
